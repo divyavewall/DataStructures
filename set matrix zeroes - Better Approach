@@ -1,0 +1,33 @@
+In brute force approach we traverse the matrix and is we found any cell containing 0 then we record the entire row and col of that cell
+In better Approach we'll keep trach of that row and col
+we'll create row and col array in which we track the row and col for any cell containing 0 we mark row and col of that cell in their respectve row and col array
+After that we traverse the matrix again and if in any situation row is marked or column is marked we mark the cell with 0
+
+//better appproach
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        //create row and col array for marking
+        boolean[] row = new boolean[matrix.length];
+        boolean[] col = new boolean[matrix[0].length];
+        //traverse the matrix
+        for(int i = 0; i < matrix.length; i++){
+            for(int j = 0; j < matrix[0].length; j++){
+                if(matrix[i][j] ==0){
+                    row[i] = true;;
+                    col[j] = true;
+                }
+            }
+        }
+        //traversing the matrix again to mark cells with respect to row and col array
+        for(int i =0; i < matrix.length; i++){
+            for(int j = 0; j < matrix[0].length; j++){
+                if(row[i] || col[j]){
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+    }
+}
+
+Time complexity = O(2 * n * m)
+space complexity = O(m + n)
