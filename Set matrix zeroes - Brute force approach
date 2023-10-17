@@ -1,0 +1,50 @@
+Brute Force Approach
+class Solution {
+    //function to mark rows
+    public void markRow(int[][] matrix, int i){
+        for(int j = 0; j <matrix[0].length; j++){
+            if(matrix[i][j] != 0){
+                matrix[i][j] = -1;
+            }
+        }
+    }
+    
+    //function to mark columns
+     public void markCol(int[][] matrix, int j){
+        for(int i = 0; i <matrix.length; i++){
+            if(matrix[i][j] != 0){
+                matrix[i][j] = -1;
+            }
+        }
+    }
+    
+    public void setZeroes(int[][] matrix) {
+        //traverse the matrix and find the 0 
+        //if we fing 0 record that row and col 
+        for(int i = 0; i < matrix.length; i++){
+            for(int j = 0; j < matrix[0].length; j++){
+                if(matrix[i][j] == 0){
+                    markRow(matrix,i);
+                    markCol(matrix,j);
+                }
+            }
+        }
+        //after recording that row and col we put -1 at the row and col of that 0 element 
+        //we mark -1 only when element is not equal to 0
+        //after that we traverse again on matrix and replace -1 with 0
+       for(int i = 0; i < matrix.length; i++){
+            for(int j = 0; j < matrix[0].length; j++){
+                if(matrix[i][j] == -1){
+                   matrix[i][j] = 0;
+                }
+            }
+        } 
+    }
+}
+
+Time Complexity = O(m*n) * O(m+n) + O(m*n)
+O(m*n) - for traversing the matrix
+O(m+n) - in loop we are running two separate funtion to mark rows and columns
+O(m*n) - for again traversal to set -1 to zero
+
+Space Complexity - 
