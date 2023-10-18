@@ -1,0 +1,43 @@
+You are given an array prices where prices[i] is the price of a given stock on the ith day.
+You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+
+example, array = [ 7, 1, 5, 3, 6, 4 ]
+explanation - Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
+
+ ################################################# BRUTE-FORCE APPROACH ##################################################
+ we try to find all possible combinations to buy and sell a stock using wo for loops , like we try to buy and ell a particular stock on each and every day
+Time complexity - O(n^2) as we will run two loops 
+
+################################################### OPTIMAL APPROACH #####################################################
+
+-> We know that we can't sell any stock before buying iy
+-> Firstly we consider the we buy at 0th day
+-> Then we run a loop for the sell price we check in array when we can (where price will be higher than that of buy price)
+-> Means we are eliminating conditions where we are checking profit on the days when buy price is greater than sell price 
+
+-> we check if sell price is less than the buy price , then on that day we'll buy the stock
+-> if sell price > buy price we'll calculate maxProfit
+-> Initially we consider maxProfit = 0
+-> in loop we compute maxProfit using max between maxProfit and sell - buy (as sell price should be greater than the buy price to achiever maximum profit)
+
+CODE 
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        int buy = prices[0];
+        int maxProfit = 0;
+        for(int i = 1; i < prices.length; i++){
+            int sell = prices[i];
+            if(buy < sell){
+                maxProfit = Math.max(maxProfit , sell - buy);
+            }else{
+                buy = sell;
+            }
+        }
+        return maxProfit;
+    }
+}
+
+Time complexity - O(n)
